@@ -19,3 +19,10 @@
 //                      NOTE: this does not support negatives, decimals, or scientific notation
 //          reads , indicates another string/value pair is after, iterate while there are commas
 //      read until }, indicates end of object
+
+
+
+
+
+
+
