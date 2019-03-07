@@ -1,0 +1,7 @@
+{
+    "fruit" : {
+        "name" : "apple",
+        "isRipe" : true,
+        "count" : 1
+    }
+}
