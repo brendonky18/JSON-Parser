@@ -1,6 +1,8 @@
 #include <stdio.h>
 
-int main(int argc, char **argv) {
+#define FILE_PATH "file.JSON"
 
+int main(int argc, char **argv) {
+    FILE *fp = fopen(FILE_PATH);
     return 0;
 }
