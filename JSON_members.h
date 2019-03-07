@@ -1,43 +1,50 @@
 
-//each of the different possible values
-typedef enum json_values {
-    ARRAY,
-    OBJECT,
-    PRIMITIVE
-} JSON_values;
+#include <stdbool.h>
 
-//represents each type of primitive
-typedef enum primitive_type {
-    BOOL,
-    STRING,
-    INT
-} Primitive_Type;
+// each of the different possible values
+typedef enum value_type {
+    INVALID_VALUE, 
+    BOOL_VALUE,
+    NULL_VALUE, 
+    NUMBER_VALUE,
+    STRING_VALUE,
+    ARRAY_VALUE,
+    OBJECT_VALUE,
+} Value_Type;
 
-//represents an array
-typedef struct json_array {
-    void *value; //pointer to the first element in the array. Array could be json_array, json_object, or json_primitive
-} JSON_array;
+// The name of a variable, and that variable's associated value
+typedef struct json_variable {
+    // Creates linked list of all variables in an object
+    struct json_kvp *next;
+    struct json_kvp *prev;
 
-//represents an object
+    // The type of the variable
+    enum value_type *type;
+
+    // The name of the variable
+    char *name;
+
+    // The value of the variable
+    void *value;
+} JSON_Variable;
+
+
+
 typedef struct json_object {
-    struct json_kvp *value; //pointer to the first key/value pair that the object stores
-} JSON_object;
+    //name of the json_object
+    char *name;
 
-//represents a primitive
-typedef struct json_primitive {
-    enum primitive_type type; //stores the type (bool, string, int). Does not support signed ints, floats, double, etc.
-    void *value;              //stores the primitive's value
-} JSON_primitive;
+    //variables of the object
+    struct json_variable *variables;
 
-//psudo parent class/generic type that keeps track of the json_member's name
-//because array, object and primitive all have a member of type json_member, they can be cast to type json_member
-typedef struct json_kvp { //key/value pair
-    char *key;
-    void *value; //points to json_array, json_object or json_primitive
-} JSON_KVP;
+} JSON_Object;
 
-//used for a linked list structure that stores everything in the JSON file
-typedef struct json_node {
-    struct json_kvp *value;
-    struct json_node *next;
-} JSON_node;
+// Functions for checking the type of the passed variable 
+bool is_type    (struct json_variable *var, enum value_type type);
+bool is_invalid (struct json_variable *var);
+bool is_bool    (struct json_variable *var);
+bool is_null    (struct json_variable *var);
+bool is_number  (struct json_variable *var);
+bool is_string  (struct json_variable *var)
+bool is_array   (struct json_variable *var);
+bool is_object  (struct json_variable *var);
